@@ -1,13 +1,15 @@
 const express = require('express');
 const faker = require("faker");
+const {json} = require("express");
 
 const router = express.Router();
 
-/*** las endpoint específicas DEBEN R ANTES que las dnámicas ***/
+
+/*** las endpoint específicas DEBEN IR ANTES que las dinámicas ***/
 router.get('/filter', (req,res)=>{
   res.send('Filtro');
 })
-/*** las endpoint específicas DEBEN IR ANTES que las dnámicas ***/
+/*** las endpoint específicas DEBEN IR ANTES que las dinámicas ***/
 
 router.get('/', (req, res) => {
   const products = [];
@@ -29,7 +31,15 @@ router.get('/:id', (req, res) => {
     id,
     name: 'Product1',
     price: 500
-  })
+  });
+});
+
+router.post('/', (req,res)=>{
+  const body = req.body;
+  res.json ({
+    message: 'create',
+    data: body
+  });
 })
 
 module.exports = router;

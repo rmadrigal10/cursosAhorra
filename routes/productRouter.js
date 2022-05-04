@@ -1,7 +1,6 @@
 const express = require('express');
 const {json} = require("express");
 const productsService = require('./../services/productsService');
-const {tr} = require("faker/lib/locales");
 
 const router = express.Router();
 const service = new productsService();

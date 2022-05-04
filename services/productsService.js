@@ -19,7 +19,7 @@ class productService {
     }
   }
 
-  create(data) {
+  async create(data) {
     const newProduct = {
       id: faker.datatype.uuid(),
       ...data
@@ -32,14 +32,18 @@ class productService {
   }
 
   find() {
-    return this.products;
+    return new Promise ((resolve, reject) => {
+      setTimeout(() => {
+        resolve (this.products);
+      }, 5000);
+    });
   }
 
-  findOne(id) {
+  async findOne(id) {
     return this.products.find(item => item.id === id);
   }
 
-  update(id, changes) {
+  async update(id, changes) {
     const index = this.products.findIndex(item => item.id === id);
     if (index === -1) {
       throw new Error('Object Not Found');
@@ -52,7 +56,7 @@ class productService {
     return this.products[index];
   }
 
-  delete(id){
+  async delete(id){
     const index = this.products.findIndex(item => item.id === id);
     if (index === -1) {
       throw new Error('Object Not Found');
@@ -73,3 +77,9 @@ ya que separa la capa lógica, del routing y así con los demás elementos, anal
 estructura de los archivos que hemos estado creando, con la estructura de los proyectos que hemos hecho
 en Angular
 */
+
+/*Usando el métdo async, estamos simulando una petición asincrona, necesitamos agregar el prefijo "ASYNC"
+en los servicios, así como tambien en el router -> pástae al router*/
+
+// Para manejar los errores de manera asíncrona, podemos usar el método "TRY-CATCH, pero
+// directamente en el router

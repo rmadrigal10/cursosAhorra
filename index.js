@@ -3,7 +3,12 @@ const {response} = require('express');
 
 const routerApi = require('./routes/index');
 
+//Esto nos permite recibir objetos en notación json
 const app = express();
+app.use(express.json());
+//Esto nos permite recibir objetos en notación json
+
+
 const port = 3000;
 
 /*esto nos trae el módulo

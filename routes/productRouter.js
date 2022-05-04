@@ -44,23 +44,18 @@ router.get('/:id', (req, res) => {
 //método POST
 router.post('/', (req,res)=>{
   const body = req.body;
-  res.status(201).json ({
-    message: 'create',
-    data: body
-  });
-})
+  const newProduct = service.create(body);
+  res.status(201).json(newProduct);
+});
 
 //PATCH nos permite actualizar solo una parte del objeto.
 //requiere de un id
 router.patch('/:id', (req,res)=>{
   const { id } = req.params;
   const body = req.body;
-  res.json ({
-    message: 'update',
-    data: body,
-    id
-  });
-})
+  const product = service.update(id, body);
+  res.json (product);
+});
 
 //Método DELETE
 //NO requiere de un DATA: body
@@ -68,11 +63,8 @@ router.patch('/:id', (req,res)=>{
 router.delete('/:id', (req,res)=>{
   // const body = req.body;
   const { id } = req.params;
-  res.json ({
-    message: 'deleted',
-    // data: body
-    id
-  });
-})
+  const product = service.delete(id);
+  res.json (product);
+});
 
 module.exports = router;

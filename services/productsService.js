@@ -1,4 +1,5 @@
 const faker = require("faker");
+const boom = require('@hapi/boom');
 
 class productService {
 
@@ -40,13 +41,17 @@ class productService {
   }
 
   async findOne(id) {
-    return this.products.find(item => item.id === id);
+    const product = this.products.find(item => item.id === id);
+    if(!product){                                       //Si usamos un estilo "boom" para los mensajes de error,
+      throw boom.notFound('Product Not Found'); //debemos evaluarlo como esta forma de la izquierda,
+    }                                                   //luego, vamos al error handler =>
+    return product;
   }
 
   async update(id, changes) {
     const index = this.products.findIndex(item => item.id === id);
     if (index === -1) {
-      throw new Error('Object Not Found');
+      throw boom.notFound('Product Not Found');
     }
     const product = this.products[index];
     this.products[index] = {
@@ -59,7 +64,7 @@ class productService {
   async delete(id){
     const index = this.products.findIndex(item => item.id === id);
     if (index === -1) {
-      throw new Error('Object Not Found');
+      throw boom.notFound('Product Not Found');
     }
     this.products.splice(index, 1);
     return { id };

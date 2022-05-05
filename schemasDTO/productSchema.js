@@ -4,19 +4,24 @@ const Joi = require('joi');
 
 //Constantes de validación
 const id = Joi.string().uuid();                                 //la constante id debe tener un formato Joi, de tipo string, y de uuid
-const name = Joi.string().alphanum().min(5).max(25); //name debe ser Joi, tipo string, alfanumérico, con longitud mínima y máxima
+const name = Joi.string().min(5).max(25);            //name debe ser Joi, tipo string, alfanumérico, con longitud mínima y máxima
 const price = Joi.number().integer().min(1);              //price debe ser joy, tipo número entero, con longitud mínima
+const image = Joi.string().uri();                              //debe tener una imagen desde una url en formato string
 //Constantes de validación
 
+//
+//Esquemas
+//
 const createProductSchema = Joi.object({               //esté objeto de formato para la validación de datos de creación
   name: name.required(),                                      //requiere de un nombre
   price: price.required(),                                    //requiere un precio
-  id: id.required()                                           //requiere un id
+  image: image.required()                                     ////requiere una imagen
 });
 
 const updateProductSchema = Joi.object({               //esté objeto de formato para la validación de datos de modificación
   name: name,                                                 //puede tener un nombre
-  price: price                                                //puede tener un precio
+  price: price,                                               //puede tener un precio
+  image: image                                                //puede tener una imagen
 });
 
 const getProductSchema = Joi.object({                  //ese objeto de formato para la validación de obtención de un producto

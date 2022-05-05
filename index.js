@@ -1,10 +1,30 @@
 // esto nos trae el módulo express
 const express = require('express');
-const {response} = require("express");
+const {response} = require('express');
 // esto nos trae el módulo express
-const port = 3000;
+const cors = require('cors');      //nos trae a cors para el control de acceso a la API
+
+const port = process.env.PORT || 3000;
+
 const routerApi = require('./routes/index'); // Enrutamiento para una Única responsabilidad
 const { logError, errorHandler, BoomErrorHandler } = require('./middlewares/errorsHandler'); // Nos trae los middlewares de error handling
+
+
+//cors
+
+app.use(cors(options));
+const whitelist = ['http://localhost:8080'];
+const options = {
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin) || !origin){
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido'));
+    }
+  }
+}
+
+//cors
 
 //Esto nos permite recibir objetos en notación json
 const app = express();

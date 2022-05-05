@@ -2,7 +2,7 @@
 const express = require('express');
 const {response} = require('express');
 // esto nos trae el módulo express
-const cors = require('cors');      //nos trae a cors para el control de acceso a la API
+const cors = require('cors')     //nos trae a cors para el control de acceso a la API
 
 const port = process.env.PORT || 3000;
 
@@ -12,7 +12,6 @@ const { logError, errorHandler, BoomErrorHandler } = require('./middlewares/erro
 
 //cors
 
-app.use(cors(options));
 const whitelist = ['http://localhost:8080'];
 const options = {
   origin: (origin, callback) => {
@@ -23,6 +22,7 @@ const options = {
     }
   }
 }
+
 
 //cors
 
@@ -46,6 +46,7 @@ routerApi(app);
 app.use( logError );
 app.use( BoomErrorHandler );
 app.use( errorHandler );
+app.use(cors(options));
 // los middlewares deben definirse DESPUÉS del routing
 
 

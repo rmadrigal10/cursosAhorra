@@ -55,16 +55,17 @@ router.post('/', async (req,res)=>{
 
 //PATCH nos permite actualizar solo una parte del objeto.
 //requiere de un id
-router.patch('/:id', async (req,res)=>{
+router.patch('/:id', async (req,res, next)=>{
   try {
     const { id } = req.params;
     const body = req.body;
     const product = await service.update(id, body);
     res.json (product);
-  } catch (error){
+  } catch (error){/*
     res.status(404).json({
       message: error.message
-    })
+    })*/
+    next (error);
   }
 });
 

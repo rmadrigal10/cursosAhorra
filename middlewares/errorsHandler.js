@@ -18,4 +18,4 @@ function errorHandler(err, req, res, next) {
   next(err);                                              //<= esta linea significa que si no hay error, ejecute el siguiente middleware de error
 }
 
-module.exports = { logError, errorHandler }
+module.exports = { logError, errorHandler, BoomErrorHandler }

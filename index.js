@@ -4,7 +4,7 @@ const {response} = require("express");
 // esto nos trae el módulo express
 const port = 3000;
 const routerApi = require('./routes/index'); // Enrutamiento para una Única responsabilidad
-const { logError, errorHandler } = require('./middlewares/errorsHandler'); // Nos trae los middlewares de error handling
+const { logError, errorHandler, BoomErrorHandler } = require('./middlewares/errorsHandler'); // Nos trae los middlewares de error handling
 
 //Esto nos permite recibir objetos en notación json
 const app = express();
@@ -24,6 +24,7 @@ routerApi(app);
 
 // los middlewares deben definirse DESPUÉS del routing
 app.use( logError );
+app.use( BoomErrorHandler );
 app.use( errorHandler );
 // los middlewares deben definirse DESPUÉS del routing
 
